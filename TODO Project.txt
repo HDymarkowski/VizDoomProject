@@ -1,0 +1,6 @@
+Todo before real work:
+	> Conda
+	> Timetable
+	> Git
+
+1:35
