@@ -1,0 +1,32 @@
+--- https://www.youtube.com/watch?v=eBCU-tqLGfQ&t=664s ---
+
+GOT TO :  "Animtaion 3"
+
+I need to run through powershell
+I am using the wrong interpereter in vsc
+
+state.screen_buffer is the frame of the game (state = game.get_state())
+State is like all the important info of the game in that frame'
+
+https://www.youtube.com/watch?v=8MC3y7ASoPs
+
+THE IDEA:
+	> VizDOOM rewards system but instead of using reinforcement learning we use the game.get_state().screen_buffer image to make the decisions
+
+Look at the plt.imshow() stuff about an hour in
+
+Jupyter notebook might be a cool way of running this
+
+
+PPO Things you get as output (1 hr 31 mins in https://www.youtube.com/watch?v=eBCU-tqLGfQ):
+	> approx_kl = how different current agent is vs new agent, if it spikes then we are getting unstable learinign
+		- Should vary but not spikes
+		- PPO deals with this via clipping
+	> explained variaence = measure of how well our critic model is able to explain the varience of the value function
+		- You want it to be +vr cause that means our critic model is able to predict the value of the current state in a lto more detail
+	> policy_gradient_loss = how well our agent is able to take actions to capitalise on its advantage
+		- You want to see this decrease, meaning our loss is decreasing, meaning our agent is able to better capitalize on advantage
+		- Very important, apparently
+		- Fluxuates a lot in the start, then heads down
+	> Value loss = how well our agent is actually able to predict the current return based on the current state in action
+		- You want this to decrease too

@@ -1,0 +1,112 @@
+# Timelog
+
+* VizDoom
+* Hubert Dymarkowski
+* 2468988d
+* Doctor Paul Siebert
+
+## Week 1
+
+### 06 Oct 2022
+
+* *2 hours* Had initial meeting with Doctor Siebert
+
+## 07 Oct 2022
+
+* *1 hour* Read over meetin notes
+* *1.5 hours* Did very basic research - google searches of VizDoom and looked at first things to come up, took notes
+
+## Week 2
+
+### 10 Oct 2022
+
+* *2 hours* continued with basic research from last Week
+* *4 hours* Attempted to get vizDOOM working on computer - still some issues but it runs
+
+## 13 Oct 2022
+
+* *3 hours* Looked briefly at vizDOOM documentation to get an idea of what could be done with it
+* *1 hour* Prepared for meeting tomorrow
+
+## 14 Oct 2022
+
+* *2 hours* Meeting with Doctor Siebert - idea for project still a bit vague
+* *3 hours* Went back and looked over documentation more
+
+## Week 3
+
+### 18 Oct 2022
+
+* *1 hour* Looked over notes form last Week
+* *1 hour* Tried to pinpoint what project is going to be - still too vague, will need to talk to Dr Siebert about things
+
+## 19 Oct 2022
+
+* *3 hours* Looked at alternatives to VizDoom in case it does not do what I want it to
+
+## 21 Oct 2022
+
+* *2 hours* Meeting with Dr Siebert, talked about alternatives but I think I might stick to vizDoom, got told to see if maybe I want to try looking at other games instead of Doom
+* *3 hours* Looked at other games to do project with but Doom seems most appropirate (and simplest) - alternatives include CSGO and things in unity
+
+## Week 4
+
+### 26 Oct 2022
+
+* *4 hours* Looked at VizDoom documentation and played about with it, still just trying to get a feel for it
+* *30 mins* Did more research on similar technologies - stumbled on ResearchDoom
+
+## 27 Oct 2022
+
+* 3.5 hours* Read resarchDoom papers, documentation, ect. Still very confused by it
+
+##28 Oct 2022
+
+* *2 hours* Met with Dr Siebert, presented ResearchDoom to him. Had it explained but I'm confused into how it could fit into my project. Ignoring it for now
+* *2 hours* Played about more in VizDoom
+
+## Week 5
+
+### 2 Nov 2022
+
+* *1 hour* Looked at potential vizDoom tutorials, found good one on youtube
+* *3 hours* Followed vizDoom youtube tutorial
+
+## 3 Nov 2022
+
+* *3 hours* Followed vizDoom youtube tutorial - by far the most helpful thing so far, have a much better idea of what vizDoom can do and what I can make the project do now
+
+## 4 Nov 2022
+
+* *2 hours* Met with Doctor Siebert, showed hom progress on tutorial, he wants a demo next week*
+
+## Week 6
+
+### 10 Nov 2022
+
+* *1 hour* Looked at code I wrote last week to make sense of it again
+* *1 hour* Looked at vizDoom documentation
+* *1 hour* Tried to do more of tutorial but couldn't get it working, spent time fixing unexpected errors instead
+* * 1.5 hours* Compiled tutorial code into demo for Doctor Siebert
+
+## 11 Nov 2022
+
+* *2 hours* Meeting with Doctor Siebert, he liked the demonstration and sugessted I look at pyTorch
+
+## Week 7
+
+### 16 Nov 2022
+
+* *1 hour* Researched pyTorch
+* *3 hours* Did pyTorch tutorial
+
+## 17 Nov 20222
+
+* *2 hours* Did pyTorch tutorial
+
+## 18 Nov 20222
+
+* *2 hours* Meeting with Doctor Siebert
+* *1 hour* Did pyTorch tutorial
+
+## Week 8
