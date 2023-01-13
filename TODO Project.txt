@@ -4,3 +4,7 @@ Todo before real work:
 	> Git
 
 1:35
+
+Potentially look into:
+	> Training the model on auxhillary tasks like enemy detection
+	> Using curisority driven exploration to improve exploration of the envirometn

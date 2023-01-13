@@ -1,0 +1,3 @@
+tutorial 2 seond part explains the screen_buffer well
+
+Need to do pytorch tutorials, got 10 mins into tutorial 2
