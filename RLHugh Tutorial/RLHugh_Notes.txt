@@ -1,3 +1,8 @@
 tutorial 2 seond part explains the screen_buffer well
 
 Need to do pytorch tutorials, got 10 mins into tutorial 2
+
+Look at:
+    > MLFlow
+    > Entropy Stabilisation and initialization or add in another conv layer and smaller image
+    > PYTHONPATH=. ??? 
