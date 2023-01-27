@@ -12,7 +12,7 @@
 #####################################################################
 
 """
-Added batching in this one
+This is the code for running the models
 """
 
 import os
@@ -24,14 +24,12 @@ import json
 from torch import nn, optim, distributions
 from model import Net # ?
 import torch.nn.functional as F
+import argparse
 
 
-lr = 0.0001
-save_path = 'model.pt'
-accumulate_steps = 16 # How many episodes between optimization steps
 
 
-if __name__ == "__main__":
+def run(args):
     # Create DoomGame instance. It will run the game and communicate with you.
     game = vzd.DoomGame()
 
@@ -106,7 +104,7 @@ if __name__ == "__main__":
     game.set_episode_start_time(10)
 
     # Makes the window appear (turned on by default)
-    game.set_window_visible(False)
+    game.set_window_visible(True)
 
     # Turns on the sound. (turned off by default)
     # game.set_sound_enabled(True)
@@ -143,9 +141,8 @@ if __name__ == "__main__":
     # sleep_time = 1.0 / vzd.DEFAULT_TICRATE  # = 0.028
     sleep_time = 0.0
 
-    model = Net(image_height=120, image_width=160, num_actions=len(actions))
-    opt = optim.RMSprop(lr=lr, params=model.parameters())
-    out_f = open('log.txt', 'w')
+    # model = Net(image_height=120, image_width=160, num_actions=len(actions))
+    model = torch.load(args.in_model_path)
 
     i = 0
 
@@ -188,9 +185,6 @@ if __name__ == "__main__":
             # print('action_probs', action_probs)
             m = distributions.Categorical(action_probs)
             action = m.sample()
-            log_prob = m.log_prob(action)
-            # print('log_prob', log_prob)
-            action_log_probs.append(log_prob)
             action = action.item()
 
             # Games variables can be also accessed via
@@ -214,41 +208,14 @@ if __name__ == "__main__":
 
         # Check how the episode went.
         episode_reward = game.get_total_reward()
-        episode_reward = episode_reward / 100
-        per_timestep_losses = [- log_prob * episode_reward for log_prob in action_log_probs]
-        per_timestep_losses_t = torch.stack(per_timestep_losses)
-        # print('per_timestep_losses_t', per_timestep_losses_t)
-        loss = per_timestep_losses_t.sum()
-
-        batch_loss = batch_loss + loss.item() # Mind, don't use +=
-        batch_reward = batch_reward + game.get_total_reward()
-
         
-        loss.backward()
-        
-
-        # To avoid steep drop offs, we make it just happen every "accumulate_steps" steps
-        if (i + 1) % accumulate_steps == 0: # "i + 1" so it doesn't do some dodgy shit initially
-            print('batch', i // accumulate_steps, 'reward %.1f' % batch_reward//accumulate_steps, 'loss %.4f' % batch_loss//accumulate_steps)
-            # Should be averaging instead Idk if this averaging is rigt
-            opt.step()
-            opt.zero_grad()
-            out_f.write(json.dumps({
-                'batch': i // accumulate_steps,
-                'loss': batch_loss,
-                'reward': batch_reward
-            }) + '\n')
-            out_f.flush()
-            batch_loss = 0.0
-            batch_reawrd = 0.0
-
-
-        if i % 10000 == 0:
-            torch.save(model, save_path)
-            print('saved model')
-        i += 1
-
     # It will be done automatically anyway but sometimes you need to do it in the middle of the program...
     game.close()
 
     # MLFLow?
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--in-model-path", type=str, required = True)
+    args = parser.parse_args()
+    run(args)

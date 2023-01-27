@@ -11,10 +11,6 @@
 # To see the scenario description go to "../../scenarios/README.md"
 #####################################################################
 
-"""
-Added batching in this one
-"""
-
 import os
 from random import choice
 from time import sleep
@@ -22,13 +18,12 @@ import vizdoom as vzd
 import torch
 import json
 from torch import nn, optim, distributions
-from model import Net # ?
+from model import Net
 import torch.nn.functional as F
 
 
 lr = 0.0001
-save_path = 'model.pt'
-accumulate_steps = 16 # How many episodes between optimization steps
+save_path = 'his_model.pt'
 
 
 if __name__ == "__main__":
@@ -148,18 +143,12 @@ if __name__ == "__main__":
     out_f = open('log.txt', 'w')
 
     i = 0
-
-    batch_loss = 0.0
-    batch_reward = 0.0
-
     while True:
 
         # Starts a new episode. It is not needed right after init() but it doesn't cost much. At least the loop is nicer.
         game.new_episode()
 
         action_log_probs = []
-
-
         while not game.is_episode_finished():
 
             # Gets the state
@@ -219,30 +208,16 @@ if __name__ == "__main__":
         per_timestep_losses_t = torch.stack(per_timestep_losses)
         # print('per_timestep_losses_t', per_timestep_losses_t)
         loss = per_timestep_losses_t.sum()
-
-        batch_loss = batch_loss + loss.item() # Mind, don't use +=
-        batch_reward = batch_reward + game.get_total_reward()
-
-        
+        print('episode', i, 'total reward', game.get_total_reward(), 'loss %.4f' % loss.item())
+        opt.zero_grad()
         loss.backward()
-        
-
-        # To avoid steep drop offs, we make it just happen every "accumulate_steps" steps
-        if (i + 1) % accumulate_steps == 0: # "i + 1" so it doesn't do some dodgy shit initially
-            print('batch', i // accumulate_steps, 'reward %.1f' % batch_reward//accumulate_steps, 'loss %.4f' % batch_loss//accumulate_steps)
-            # Should be averaging instead Idk if this averaging is rigt
-            opt.step()
-            opt.zero_grad()
-            out_f.write(json.dumps({
-                'batch': i // accumulate_steps,
-                'loss': batch_loss,
-                'reward': batch_reward
-            }) + '\n')
-            out_f.flush()
-            batch_loss = 0.0
-            batch_reawrd = 0.0
-
-
+        opt.step()
+        out_f.write(json.dumps({
+            'episode': i,
+            'loss': loss.item(),
+            'reward': game.get_total_reward()
+        }) + '\n')
+        out_f.flush()
         if i % 10000 == 0:
             torch.save(model, save_path)
             print('saved model')
@@ -250,5 +225,3 @@ if __name__ == "__main__":
 
     # It will be done automatically anyway but sometimes you need to do it in the middle of the program...
     game.close()
-
-    # MLFLow?
