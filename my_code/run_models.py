@@ -73,7 +73,7 @@ def run(args):
 
         while not game.is_episode_finished():
             state = game.get_state() # Game state
-            screen_buf = state.screen_buffer # The actual ifmage on screen
+            screen_buf = state.screen_buffer # The actual image on screen
 
             ### Get action from screen buffer
             screen_buf_t = torch.from_numpy(screen_buf) / 255
@@ -85,7 +85,7 @@ def run(args):
             # [N][C][H][W]
             action_logits = model(screen_buf_t)
             action_probs = F.softmax(action_logits)
-            # print('action_probs', action_probs)
+
             m = distributions.Categorical(action_probs)
             action = m.sample()
             action = action.item()
@@ -95,8 +95,6 @@ def run(args):
 
             if sleep_time > 0:
                 sleep(sleep_time)
-            
-    game.close() # Close the game
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
