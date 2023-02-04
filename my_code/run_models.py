@@ -7,6 +7,7 @@ from model import CNN
 import torch.nn.functional as F
 import argparse
 from time import sleep
+import numpy as np
 
 def run(args):
 
@@ -15,9 +16,14 @@ def run(args):
 
 
     # Set up scenario and map
-    game.set_doom_scenario_path(os.path.join(vzd.scenarios_path, "basic.wad"))
+    game.set_doom_scenario_path(os.path.join(vzd.scenarios_path, "deadly_corridor.wad"))
     game.set_doom_map("map01")
-
+    game.load_config('C:/Users/dell/Desktop/VizDoomProject/ViZDoom/scenarios/deadly_corridor.cfg')
+    game.set_screen_resolution(vzd.ScreenResolution.RES_160X120) # Mind this is lower than the normal one
+    game.set_screen_format(vzd.ScreenFormat.RGB24)
+    game.set_doom_skill(1)
+    
+    """
     ### Configuration settings
     game.set_screen_resolution(vzd.ScreenResolution.RES_160X120)
     game.set_screen_format(vzd.ScreenFormat.RGB24)
@@ -43,6 +49,7 @@ def run(args):
     game.set_window_visible(True)
     ##
     game.set_living_reward(-1)
+    """
     game.set_mode(vzd.Mode.PLAYER)
 
     game.init()
@@ -51,14 +58,10 @@ def run(args):
     # MOVE_LEFT, MOVE_RIGHT, ATTACK
     # game.get_available_buttons_size() can be used to check the number of available buttons.
     # 5 more combinations are naturally possible but only 3 are included for transparency when watching.
-    actions = [
-        [True, False, False],
-        [False, True, False],
-        [False, False, True]
-    ]
+    actions = np.identity(len(game.get_available_buttons()))
 
     # The pause after each action
-    sleep_time = 0.05
+    sleep_time = 0.00
 
     # The model, loaded from the argument provided
     model = torch.load(args.model_name)

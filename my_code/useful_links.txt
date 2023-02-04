@@ -2,3 +2,4 @@ https://uos.github.io/mbf_docs/tutorials/advanced/pytrees/
 https://www.researchgate.net/figure/Framework-overview-a-Observing-image-and-depth-from-VizDoom-Running-Faster-RCNN-b_fig9_322152625
 https://pdfs.semanticscholar.org/74c3/5bb13e71cdd8b5a553a7e65d9ed125ce958e.pdf
 https://github.com/akolishchak/doom-net-pytorch/tree/master/src
+https://pdfs.semanticscholar.org/74c3/5bb13e71cdd8b5a553a7e65d9ed125ce958e.pdf
