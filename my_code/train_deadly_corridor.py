@@ -31,17 +31,24 @@ Changes made:
         > Need some kind of insentive for exploration?
         > Or maybe we could takeaway the living reward
             - Add it back later?
-        > https://towardsdatascience.com/explained-curiosity-driven-learning-in-rl-exploration-by-random-network-distillation-72b18e69eb1b
+        > https://towardsdatascience.com/explained-curiosity-driven-learning-in-rl-ghf-by-random-network-distillation-72b18e69eb1b
             - Seems like PPO could be used here
+
+    TODO Phase 2:
+        > Increase difficulty x (1 -> 3)
+        > Increase penalty for getting hit x (0.2 * damage_taken -> 0.4 * damage_taken)
+        > Add insentive for getting a kill x
+            - Adding killcount
+            - Making reward based off that (killcount * 30)
 """
 
 # Hyperparameters
 
-load = False
+load = True
 lr = 0.0001
-save_path = "basic_model.pt" # This is not actually used
+save_path = "model_4000.pt" # This is not actually used
 accumulate_episodes = 4 # No clule what this should be
-difficulty = 1
+difficulty = 3
 
 # New hyperparameters
 save_model_steps = 2000 # How many steps we want to take before we save a new model
@@ -59,7 +66,7 @@ if __name__ == "__main__":
 
 
     ## NEW: Instead of all of the below options we'll just do...
-    game.load_config('C:/Users/dell/Desktop/VizDoomProject/ViZDoom/scenarios/deadly_corridor.cfg') # TODO: We are setting this manually, must be a nicer way of doing 
+    game.load_config('C:/Users/Computer/Desktop/VizDoomProject/ViZDoom/scenarios/deadly_corridor.cfg') # TODO: We are setting this manually, must be a nicer way of doing 
     # Rendering options
 
     game.set_doom_scenario_path(os.path.join(vzd.scenarios_path, "deadly_corridor.wad"))
@@ -101,7 +108,7 @@ if __name__ == "__main__":
     out_f = open('log.json', 'w') # The output log file
 
 
-    i = 0 # The iteration as we are running an endless loop (while True)
+    i =  4000 # The iteration as we are running an endless loop (while True)
 
     batch_loss = 0.0 # The loss for the current batch
     batch_reward = 0.0 # The reward for the current batch
@@ -170,14 +177,22 @@ if __name__ == "__main__":
                 prev_health = health
                 total_damage_taken += damage_taken
 
+            
+
+
 
             ## Sleep if needed
             if sleep_time > 0:
                 sleep(sleep_time)
 
+
+        ## Getting reward for kills here
+        kill_count = vars[1]
+        kill_reward = kill_count * 30
+
         ## Check how the episode went
-        damage_reward = total_damage_taken * 0.2 # "0.2" is a total guess
-        episode_reward = game.get_total_reward() - damage_reward
+        damage_reward = total_damage_taken * 0.4 # Changed 0.2 to 0.4
+        episode_reward = game.get_total_reward() - damage_reward + kill_reward
         episode_reward = episode_reward/ 100 # Normalize it
         per_timestep_losses = [- log_prob * episode_reward for log_prob in action_log_probs]
         per_timestep_losses_t = torch.stack(per_timestep_losses)

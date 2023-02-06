@@ -1,0 +1,39 @@
+-- Phase 1 --
+
+Ran with lr = 0.0001, accumulate_episodes = 4 and difficulty = 1
+Also had a damage reward for damage taken:
+	> episode_reward - (total_damage_taken * 0.2)
+
+model 0
+	> sucks
+	> Goes to kill both of them
+	> Kills then just kinda gets stuck
+	> Does a shite job of killing them
+
+model 2000
+	> turns keeps shooting and walks backwards
+	> Gets past the first door (soemtimes kills both of the guys) then just runs backwards and dies
+
+model 4000 kinda the same
+
+so is model 6000
+
+so is model 8000
+
+so is model 10000
+
+so is model 12000
+
+so is model 14000
+
+We lost the log data for the first 1000
+
+We should just go from 4000ds 
+
+
+Why is it just turning
+	> Difficulty too low - low insentive to kill cause can still get decent reward by just running -> Turn up difficulty
+	> Not getting penalised enough for getting hit?
+	> Want to insentivise killing maybe by adding a reward for each kill
+
+Gonna train from model_4000 and set i = 4000

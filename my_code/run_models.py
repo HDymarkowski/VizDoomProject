@@ -18,7 +18,7 @@ def run(args):
     # Set up scenario and map
     game.set_doom_scenario_path(os.path.join(vzd.scenarios_path, "deadly_corridor.wad"))
     game.set_doom_map("map01")
-    game.load_config('C:/Users/dell/Desktop/VizDoomProject/ViZDoom/scenarios/deadly_corridor.cfg')
+    game.load_config('C:/Users/Computer/Desktop/VizDoomProject/ViZDoom/scenarios/deadly_corridor.cfg')
     game.set_screen_resolution(vzd.ScreenResolution.RES_160X120) # Mind this is lower than the normal one
     game.set_screen_format(vzd.ScreenFormat.RGB24)
     game.set_doom_skill(1)
